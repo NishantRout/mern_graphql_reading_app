@@ -1,6 +1,12 @@
 const graphql = require("graphql");
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLSchema,
+  GraphQLID,
+  GraphQLInt,
+} = graphql;
 
 //dummy data
 const books = [
@@ -24,6 +30,15 @@ const BookType = new GraphQLObjectType({
   }),
 });
 
+const AuthorType = new GraphQLObjectType({
+  name: "Author",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: graphql.GraphQLInt },
+  }),
+});
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
@@ -35,6 +50,15 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         //code to get data from db
         return books.find((movie) => movie.id == args.id);
+      },
+    },
+    author: {
+      type: AuthorType,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        return authors.find((author) => author.id == args.id);
       },
     },
   },
