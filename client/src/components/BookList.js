@@ -13,7 +13,7 @@ const getBooksQuery = gql`
 function BookList() {
   const { loading, error, data } = useQuery(getBooksQuery);
 
-  console.log("👉", data);
+  console.log("📚", data);
 
   if (loading) return <p>Loading....</p>;
 
