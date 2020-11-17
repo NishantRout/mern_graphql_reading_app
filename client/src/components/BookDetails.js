@@ -8,15 +8,19 @@ function BookDetails({ bookId }) {
       id: bookId,
     },
   });
-  console.log("🚀", data);
   const displayBooks = () => {
+    // console.log("🚀", data);
+    if (loading) return <p>Loading 📚....</p>;
+
+    if (error) return <p>Ops! Something went wrong</p>;
+
     const { book } = data;
     if (book) {
       return (
         <div>
           <h2>{book.name}</h2>
-          <p>{book.genre}</p>
-          <p>{book.author.name}</p>
+          <p>Genre: {book.genre}</p>
+          <p>Author: {book.author.name}</p>
           <p>All books by this author:</p>
           <ul className="other-books">
             {book.author.books.map((item) => (
@@ -30,11 +34,11 @@ function BookDetails({ bookId }) {
     }
   };
 
-  if (loading) return <p>Loading 📚....</p>;
-
-  if (error) return <p>Ops! Something went wrong</p>;
-
-  return <div id="book-details">{displayBooks()}</div>;
+  return (
+    <div id="book-details">
+      {bookId != null ? displayBooks() : <h2>No 📚 selected...</h2>}
+    </div>
+  );
 }
 
 export default BookDetails;

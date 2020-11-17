@@ -71,6 +71,7 @@ function AddBook() {
       <div className="field">
         <label>Author:</label>
         <select
+          value={newBook.authorId}
           onChange={(e) => setNewBook({ ...newBook, authorId: e.target.value })}
         >
           <option>Select author</option>
